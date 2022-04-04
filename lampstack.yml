@@ -1,0 +1,42 @@
+---
+
+- name: Deploying LAMP stack on node2
+  hosts: node2
+  become: yes
+  
+  vars:
+    ansible_become_pass: "vagrant"
+        
+  tasks:
+  
+  - name: installing Apache server, MariaDB server
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop:
+      - httpd
+      - mariadb
+      - mariadb-server
+      - php
+      - php-mysql
+          
+  - name: Enable and start httpd service
+    service:
+      name: httpd
+      enabled: yes
+      state: started
+          
+  - name: Enable and start MYSQL service
+    service:
+      name: mariadb
+      enabled: yes
+      state: started
+          
+  - name: Copy the php file in /var/www/html
+    copy:
+      src: index2.php
+      dest: /var/www/html/index2.php
+      force: yes
+  
+  
+...

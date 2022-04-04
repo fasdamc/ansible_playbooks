@@ -1,0 +1,17 @@
+---
+
+- name: playbook to install and configure httpd
+  hosts: webservers
+  become: yes
+  
+  vars: 
+    ansible_become_pass: "vagrant"
+
+  roles:
+    - apache
+
+
+
+
+
+...
