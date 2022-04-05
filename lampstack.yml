@@ -10,7 +10,7 @@
   tasks:
   
   - name: installing Apache server, MariaDB server
-    yum:
+    ansible.builtin.yum:
       name: "{{ item }}"
       state: latest
     loop:
@@ -21,19 +21,19 @@
       - php-mysql
           
   - name: Enable and start httpd service
-    service:
+    ansible.builtin.service:
       name: httpd
       enabled: yes
       state: started
           
   - name: Enable and start MYSQL service
-    service:
+    ansible.builtin.service:
       name: mariadb
       enabled: yes
       state: started
           
   - name: Copy the php file in /var/www/html
-    copy:
+    ansible.builtin.copy:
       src: index2.php
       dest: /var/www/html/index2.php
       force: yes
